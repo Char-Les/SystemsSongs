@@ -1,3 +1,4 @@
+#include <string.h>
 #include "heads.h"
 
 // insert the song; artist into the front of the given node
@@ -28,16 +29,18 @@ song_node * insert_order(song_node * node, char * name, char * artist){
     temp = insert_front(temp, name, artist);
     return node;
   }else{
-    temp -> next = insert_front(0, name, artist);
+    temp->next = insert_front(0, name, artist);
     return node;
   }
 }
 
 void print_songs(song_node * node){
   // loop through the list
+  // printf("\n");
   while (node){
-    printf("%s: %s | ", node -> artist, node -> song);
-    node = node -> next;
+    // printf("\n");
+    // printf("%s: %s", node->artist, node->song);
+    node = node->next;
   }
   printf("\n");
 }
@@ -59,17 +62,20 @@ song_node * find_artist(song_node * node, char * name){
 }
 
 song_node * random_song(song_node * node){
-  count = 0;
-  temp = node;
+  int count = 0;
+  song_node * temp = node;
   while (temp && ++count)
     temp = temp->next;
-  srand((unsigned) time(&t));
+  count = rand() % count;
+  while (count)
+    node = node->next;
+  return node;
 }
 
-void remove(song_node * node, song_node * toremove){
+void remove_song(song_node * node, song_node * toremove){
   song_node * temp = find_artist(node, toremove->artist);
   // terminate if it's not in the list
-  if (temp != find_song(node, toremove->song) || temp == null)
+  if (temp != find_song(node, toremove->song) || temp == 0)
     return;
   // while node is not null and you're not at temp
   while (node->next != temp)
@@ -80,9 +86,9 @@ void remove(song_node * node, song_node * toremove){
 
 song_node * free_list(song_node * node){
   while (node){
-    temp = node;
+    song_node * temp = node;
     node = node->next;
-    free(temp):
+    free(temp);
   }
   return 0;
 }
