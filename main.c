@@ -4,7 +4,7 @@
 #include "heads.h"\
 
 int main(){
-  if(0){
+  if(1){
     printf("\n------------song_node Testing------------\n");
     printf("----insert_front and print_songs:\n");
     song_node * test = insert_order(0, "song", "artist1");
